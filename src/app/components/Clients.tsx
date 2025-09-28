@@ -5,15 +5,11 @@ import { motion } from 'framer-motion';
 
 const TrustedBy: React.FC = () => {
     return (
-        <section className="relative bg-gray-950 text-gray-300 py-24 md:py-32 overflow-hidden">
-            {/* Background Dot Pattern with Radial Mask */}
-            <div
-                className="absolute inset-0 z-0 bg-dot-purple-500/[0.15]"
-                style={{
-                    maskImage: 'radial-gradient(ellipse at center, white, transparent 60%)',
-                    WebkitMaskImage: 'radial-gradient(ellipse at center, white, transparent 60%)'
-                }}
-            />
+        <section className="relative bg-[#0a0710] text-gray-300 py-24 md:py-32 overflow-hidden">
+            {/* --- ADDED BACKGROUND ELEMENTS --- */}
+            <div className="absolute inset-0 grid-background"></div>
+            <div className="absolute top-0 left-0 w-1/2 h-48 bg-gradient-to-br from-purple-700 to-transparent opacity-30 blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-1/2 h-48 bg-gradient-to-tl from-indigo-700 to-transparent opacity-30 blur-3xl"></div>
 
             {/* Centered Content */}
             <div className="container mx-auto px-4 relative z-10">
@@ -24,7 +20,8 @@ const TrustedBy: React.FC = () => {
                     transition={{ duration: 0.8 }}
                     className="text-center"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
+                    {/* Added py-2 to prevent font clipping */}
+                    <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400 py-2">
                         Trusted By Leading Companies
                     </h2>
                     <p className="text-purple-400 mt-4 text-base md:text-lg max-w-2xl mx-auto">
@@ -32,14 +29,6 @@ const TrustedBy: React.FC = () => {
                     </p>
                 </motion.div>
             </div>
-
-            {/* Minimal Required Styles */}
-            <style jsx>{`
-                .bg-dot-purple-500\\[\\[0.15\\]\\] {
-                    background-image: radial-gradient(circle at center, rgba(168, 85, 247, 0.15) 1px, transparent 1px);
-                    background-size: 1.5rem 1.5rem;
-                }
-            `}</style>
         </section>
     );
 };

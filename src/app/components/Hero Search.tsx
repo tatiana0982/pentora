@@ -205,7 +205,7 @@ const ScanModal = ({ isOpen, onClose, domain }) => {
     );
 };
 
-// --- HERO SEARCH SECTION COMPONENT (No changes) ---
+// --- HERO SEARCH SECTION COMPONENT (UPDATED WITH NEW BACKGROUND) ---
 const HeroSearch = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -233,7 +233,12 @@ const HeroSearch = () => {
     };
 
     return (
-        <div className="relative w-full bg-[#0a0710] text-white font-sans">
+        <div className="relative w-full bg-[#0a0710] text-white font-sans overflow-hidden">
+             {/* --- ADDED BACKGROUND ELEMENTS --- */}
+            <div className="absolute inset-0 grid-background"></div>
+            <div className="absolute top-0 left-0 w-1/2 h-48 bg-gradient-to-br from-purple-700 to-transparent opacity-30 blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-1/2 h-48 bg-gradient-to-tl from-indigo-700 to-transparent opacity-30 blur-3xl"></div>
+            
             <Toaster
                 position="top-center"
                 toastOptions={{
@@ -244,14 +249,19 @@ const HeroSearch = () => {
                     },
                 }}
             />
+            {/* This original mouse-follow effect is kept */}
             <motion.div className="pointer-events-none fixed inset-0 z-0 opacity-20 blur-3xl" style={{ background: `radial-gradient(800px at ${mousePosition.x}px ${mousePosition.y}px, rgba(124, 58, 237, 0.3), transparent 80%)`}}/>
+            
             <ScanModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} domain={scanDomain}/>
+
             <div className="relative z-10 p-4 sm:p-6 md:p-8">
                 <div className="max-w-7xl mx-auto">
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="text-center pt-16 pb-20 sm:pt-20 sm:pb-24">
                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase">
-                            <span className="bg-clip-text text-transparent bg-gradient-to-br from-fuchsia-500 to-purple-600">Enterprise</span>
-                            <span className="block text-gray-400">Cyber Solutions</span>
+                            <span className="bg-clip-text text-transparent bg-gradient-to-br from-fuchsia-500 to-purple-600">PENTORA</span>
+                        </h1>
+                        <h1 className="text-5xl md:text-7xl lg:text-3xl font-black tracking-tighter uppercase">
+                            <span className="block text-gray-400">Pentesting-Over-Recon & Analysis</span>
                         </h1>
                         <p className="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-400">
                             A curated & proprietary arsenal of advanced tools and services designed to fortify your digital defenses and ensure robust cybersecurity for your enterprise.
