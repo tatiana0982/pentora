@@ -5,101 +5,28 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster, toast } from 'react-hot-toast';
 import {
-    Search, Eye, X, CheckCircle2, XCircle, Loader2, ChevronDown
+    Search, Eye, X, CheckCircle2, XCircle, Loader2
 } from 'lucide-react';
 import Link from 'next/link';
 
-// --- CUSTOM SELECT/DROPDOWN COMPONENT (REDESIGNED) ---
-const CustomSelect = ({ options, selected, onChange, placeholder }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const selectRef = useRef(null);
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (selectRef.current && !selectRef.current.contains(event.target)) {
-                setIsOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-
-    return (
-        <div className="relative" ref={selectRef}>
-            <button
-                type="button"
-                onClick={() => setIsOpen(!isOpen)}
-                className="w-full mt-1 flex items-center justify-between bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
-            >
-                <span className={selected ? 'text-white' : 'text-gray-400'}>{selected || placeholder}</span>
-                <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                    <ChevronDown size={20} className="text-gray-400" />
-                </motion.div>
-            </button>
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="absolute z-20 w-full mt-1 bg-[#1a112f] border border-purple-800/60 rounded-lg shadow-lg max-h-48 overflow-y-auto custom-scrollbar"
-                    >
-                        {options.map(option => (
-                            <div
-                                key={option}
-                                onClick={() => { onChange(option); setIsOpen(false); }}
-                                className={`p-2.5 text-gray-300 hover:bg-purple-900/40 cursor-pointer transition-colors ${selected === option ? 'bg-purple-900/60' : ''}`}
-                            >
-                                {option}
-                            </div>
-                        ))}
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </div>
-    );
-};
-
-// --- SCAN MODAL COMPONENT (UPDATED) ---
+// --- SCAN MODAL COMPONENT (MODIFIED) ---
 const ScanModal = ({ isOpen, onClose, domain }) => {
     const [stage, setStage] = useState('scanning');
     const [checks, setChecks] = useState([]);
     const [results, setResults] = useState({ passed: 0, failed: 0 });
     
-    // Form state management
+    // Simplified form state management
     const [formData, setFormData] = useState({ name: '', email: '', company: '', contact: '' });
-    const [employeeSize, setEmployeeSize] = useState(null);
-    const [selectedServices, setSelectedServices] = useState([]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const newServiceOptions = [
-        "Application Security & VAPT", "Network Security & VAPT", "Cloud-Native Security",
-        "Data Security & Privacy Compliance", "Infrastructure Security", "Cyber Threat Intelligence (CTI)",
-        "Security Audits & Compliance", "Cybersecurity Consulting", "Red Team Assessments",
-        "Managed Security (MSS)", "RF - Mesh VAPT", "Scada/IOT Devices VAPT",
-        "Security Awareness & Training"
-    ];
-
-    const employeeOptions = ["1-10", "11-50", "51-200", "201-1000", "1000+"];
-
-    const handleServiceChange = (service) => {
-        setSelectedServices(prev =>
-            prev.includes(service)
-                ? prev.filter(s => s !== service)
-                : [...prev, service]
-        );
-    };
-
     const resetFormState = () => {
         setStage('scanning');
         setChecks([]);
         setFormData({ name: '', email: '', company: '', contact: '' });
-        setEmployeeSize(null);
-        setSelectedServices([]);
     };
 
     useEffect(() => {
@@ -123,10 +50,13 @@ const ScanModal = ({ isOpen, onClose, domain }) => {
     const handleFormSubmit = (e) => {
         e.preventDefault();
         const { name, email, company, contact } = formData;
-        if (!name || !email || !company || !contact) { toast.error("Please complete all personal and company details."); return; }
-        if (selectedServices.length === 0) { toast.error("Please select at least one service of interest."); return; }
-        if (!employeeSize) { toast.error("Please select your company's employee size."); return; }
+        // Updated validation for the four required fields
+        if (!name || !email || !company || !contact) { 
+            toast.error("Please fill in all the required details."); 
+            return; 
+        }
         setStage('submitted');
+        // Close modal after showing success message
         setTimeout(() => onClose(), 3500);
     };
 
@@ -165,34 +95,24 @@ const ScanModal = ({ isOpen, onClose, domain }) => {
                             {(stage === 'form' || stage === 'submitted') && (
                                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                     {stage === 'submitted' ? (
-                                        <div className="text-center py-12"><motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 20 }}><CheckCircle2 className="mx-auto h-16 w-16 text-green-500" /></motion.div><h3 className="mt-4 text-2xl font-bold">Report Generation in Progress</h3><p className="text-gray-400 text-lg">It could take up to an hour. Please check your mail for the detailed report.</p></div>
+                                        // --- SUCCESS MODAL ---
+                                        <div className="text-center py-12">
+                                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 20 }}>
+                                                <CheckCircle2 className="mx-auto h-16 w-16 text-green-500" />
+                                            </motion.div>
+                                            <h3 className="mt-4 text-2xl font-bold">Thank You!</h3>
+                                            <p className="text-gray-400 text-lg">Your submission has been received. Our team will get in touch with you shortly.</p>
+                                        </div>
                                     ) : (
+                                        // --- SIMPLIFIED FORM ---
                                         <form onSubmit={handleFormSubmit} className="space-y-5">
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                 <div><label className="text-sm font-medium text-gray-400">Name</label><input type="text" name="name" value={formData.name} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
                                                 <div><label className="text-sm font-medium text-gray-400">Email</label><input type="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
-                                                <div><label className="text-sm font-medium text-gray-400">Company</label><input type="text" name="company" value={formData.company} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
+                                                <div><label className="text-sm font-medium text-gray-400">Company Name</label><input type="text" name="company" value={formData.company} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
                                                 <div><label className="text-sm font-medium text-gray-400">Contact Number</label><input type="tel" name="contact" value={formData.contact} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
                                             </div>
-                                            <div>
-                                                <label className="text-sm font-medium text-gray-400">Services of Interest</label>
-                                                <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                                    {newServiceOptions.map(service => (
-                                                        <label key={service} className="group flex items-center h-full p-3 rounded-lg bg-gray-900/50 border-2 border-transparent has-[:checked]:border-purple-600 has-[:checked]:bg-purple-900/20 cursor-pointer transition-all">
-                                                            <input type="checkbox" checked={selectedServices.includes(service)} onChange={() => handleServiceChange(service)} className="sr-only peer" />
-                                                            <div className="w-4 h-4 rounded-sm border-2 border-gray-500 group-hover:border-purple-500 peer-checked:bg-purple-600 peer-checked:border-purple-600 flex-shrink-0 flex items-center justify-center transition-all">
-                                                                {selectedServices.includes(service) && <div className="w-2 h-2 bg-purple-200 rounded-sm"></div>}
-                                                            </div>
-                                                            <span className="ml-3 text-sm text-gray-300 select-none">{service}</span>
-                                                        </label>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label className="text-sm font-medium text-gray-400">Number of Employees</label>
-                                                <CustomSelect options={employeeOptions} selected={employeeSize} onChange={setEmployeeSize} placeholder="Select a range"/>
-                                            </div>
-                                            <button type="submit" className="w-full !mt-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">Submit & Download</button>
+                                            <button type="submit" className="w-full !mt-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">Submit</button>
                                         </form>
                                     )}
                                 </motion.div>
@@ -205,7 +125,8 @@ const ScanModal = ({ isOpen, onClose, domain }) => {
     );
 };
 
-// --- HERO SEARCH SECTION COMPONENT (UPDATED WITH NEW BACKGROUND) ---
+
+// --- HERO SEARCH SECTION COMPONENT (NO CHANGES NEEDED HERE) ---
 const HeroSearch = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isModalOpen, setIsModalOpen] = useState(false);
