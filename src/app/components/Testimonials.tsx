@@ -117,10 +117,16 @@ const GlobalSOC = () => {
                     <div className="lg:col-span-1 h-full">
                         <ThreatFeed />
                     </div>
-                    <div className="lg:col-span-2 h-full bg-black/20 p-6 rounded-lg border border-white/10 relative overflow-hidden flex items-center justify-center">
-                        <h3 className="absolute top-6 left-6 font-bold text-lg text-white">Global Threat Activity</h3>
-                        <img src="globe.png" alt="Globe" className="max-h-full max-w-full object-contain" />
+                    <div className="lg:col-span-2 h-full bg-black/20 p-0 rounded-lg border border-white/10 overflow-hidden">
+                        <iframe
+                            src="https://threatmap.checkpoint.com/"
+                            title="Checkpoint Threat Map"
+                            className="w-full h-full border-0 pointer-events-none"
+                            allowFullScreen
+                            loading="lazy"
+                        ></iframe>
                     </div>
+
                 </motion.div>
             </div>
         </section>
