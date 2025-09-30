@@ -68,7 +68,7 @@ const Hero = () => {
   const cardData = animationSteps.find(s => s.type === 'card' && currentStep.type === 'card' && s.status === currentStep.status) || animationSteps[firstCardStepIndex];
   
   return (
-    <section className="relative w-full text-white pt-20 pb-20 lg:pt-24 lg:pb-32 flex justify-center overflow-hidden min-h-[90vh]">
+    <section className="relative w-full text-white pt-20 pb-4 lg:pt-24 lg:pb-32 flex justify-center overflow-hidden">
       <div className="absolute inset-0 grid-background"></div>
       <div className="absolute top-0 left-0 w-1/2 h-48 bg-gradient-to-br from-purple-700 to-transparent opacity-30 blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-1/2 h-48 bg-gradient-to-tl from-indigo-700 to-transparent opacity-30 blur-3xl"></div>
@@ -106,7 +106,7 @@ const Hero = () => {
         </motion.div>
       
         {/* Right Side: Animation Container */}
-        <div className="relative h-[550px] lg:h-[600px] w-full mt-12 lg:mt-0">
+        <div className="relative h-[480px] lg:h-[600px] w-full mt-8 lg:mt-0">
             <div className="absolute w-[550px] h-full top-[-64px] left-1/2 -translate-x-1/2 lg:left-[20%] lg:translate-x-0 origin-top scale-[0.7] sm:scale-[0.85] md:scale-90 lg:scale-100">
                 {/* The Tracing Beam */}
                 <div className="absolute top-0 left-0 h-full w-0.5 bg-white/10 z-10">

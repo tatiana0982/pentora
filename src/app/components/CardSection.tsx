@@ -149,7 +149,7 @@ const CardSection = () => {
     const extendedCards = [...cardData, ...cardData, ...cardData, ...cardData];
 
     return (
-        <section className="relative bg-[#0E091E] text-white py-24 sm:py-32 flex flex-col items-center text-center overflow-hidden">
+        <section className="relative bg-[#0E091E] text-white pt-12 pb-24 sm:py-32 flex flex-col items-center text-center overflow-hidden">
             <style jsx>{`
                 .grid-background {
                     background-image:
@@ -207,12 +207,12 @@ const CardSection = () => {
                 <div className="lg:hidden flex flex-col items-center gap-6 px-4">
                     {cardData.map((card, index) => (
                          <motion.div 
-                             key={index} 
-                             initial={{ opacity: 0, y: 20 }}
-                             whileInView={{ opacity: 1, y: 0 }}
-                             viewport={{ once: true, amount: 0.3 }}
-                             transition={{ duration: 0.6, delay: index * 0.1 }}
-                             className="w-full max-w-sm p-6 bg-gray-900/40 border border-white/10 rounded-2xl backdrop-blur-lg relative overflow-hidden"
+                            key={index} 
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.3 }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            className="w-full max-w-sm p-6 bg-gray-900/40 border border-white/10 rounded-2xl backdrop-blur-lg relative overflow-hidden"
                          >
                             <div className="absolute inset-0 pointer-events-none">
                                 {card.backgroundAsset}
@@ -265,4 +265,3 @@ const CardSection = () => {
 };
 
 export default CardSection;
-

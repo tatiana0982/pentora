@@ -34,11 +34,11 @@ const AnimatedCounter = ({ value, label, details }: { value: number; label: stri
 
     return (
         <div className="bg-black/20 p-6 rounded-lg border border-white/10 h-full">
-            <p className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-300">
+            <p className="text-3xl sm:text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-300">
                 {count.toLocaleString()}
             </p>
-            <p className="font-semibold text-white mt-2">{label}</p>
-            <p className="text-xs text-gray-400 mt-1.5 leading-snug">{details}</p>
+            <p className="font-semibold text-white mt-2 text-sm sm:text-base">{label}</p>
+            <p className="text-xs sm:text-sm text-gray-400 mt-1.5 leading-snug">{details}</p>
         </div>
     );
 };
@@ -56,7 +56,7 @@ const ThreatFeed = () => {
     const extendedFeed = [...threatFeedData, ...threatFeedData];
     return (
         <div className="bg-black/20 p-6 rounded-lg border border-white/10 h-full overflow-hidden">
-            <h3 className="font-bold text-lg mb-4 text-white">Live Threat Feed</h3>
+            <h3 className="font-bold text-lg sm:text-xl mb-4 text-white">Live Threat Feed</h3>
             <div className="relative h-full">
                 <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,white_80%,transparent_100%)]">
                     <motion.div
@@ -65,13 +65,13 @@ const ThreatFeed = () => {
                         transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                     >
                         {extendedFeed.map((item, index) => (
-                            <div key={index} className="flex items-center gap-4 text-sm">
+                            <div key={index} className="flex items-center gap-4 text-xs sm:text-sm">
                                 <AlertTriangleIcon className="w-5 h-5 text-red-500 flex-shrink-0" />
                                 <div className="flex-grow">
                                     <p className="font-semibold text-gray-200">{item.type}</p>
-                                    <p className="text-xs text-gray-400">{item.location}</p>
+                                    <p className="text-xs sm:text-sm text-gray-400">{item.location}</p>
                                 </div>
-                                <p className="text-xs font-bold text-green-400">{item.status}</p>
+                                <p className="text-xs sm:text-sm font-bold text-green-400">{item.status}</p>
                             </div>
                         ))}
                     </motion.div>
@@ -84,15 +84,15 @@ const ThreatFeed = () => {
 // --- Main Global SOC Component ---
 const GlobalSOC = () => {
     return (
-        <section className="relative bg-[#0A0514] text-white py-32 sm:py-48 flex flex-col items-center justify-center min-h-screen overflow-hidden">
+        <section className="relative bg-[#0A0514] text-white py-16 sm:py-24 lg:py-32 flex flex-col items-center justify-center min-h-screen overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(99,102,241,0.2),transparent_60%)]"></div>
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:3rem_3rem]"></div>
 
             <div className="relative z-10 w-full max-w-screen-xl mx-auto px-4">
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.8 }} className="text-center">
-                    <p className="text-indigo-400 font-semibold mb-3 tracking-wider">24/7 Global Operations</p>
-                    <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">AI-Powered Global Security Operations Center</h2>
-                    <p className="text-base md:text-lg text-gray-400 max-w-3xl mx-auto">Our GSOC is the nerve center of our defensive capabilities, providing continuous monitoring, advanced threat detection, and rapid response across the globe.</p>
+                    <p className="text-indigo-400 font-semibold mb-3 tracking-wider text-sm sm:text-base">24/7 Global Operations</p>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-4">AI-Powered Global Security Operations Center</h2>
+                    <p className="text-base sm:text-lg text-gray-400 max-w-3xl mx-auto">Our GSOC is the nerve center of our defensive capabilities, providing continuous monitoring, advanced threat detection, and rapid response across the globe.</p>
                 </motion.div>
 
                 <motion.div
@@ -100,7 +100,7 @@ const GlobalSOC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8"
+                    className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8"
                 >
                     <AnimatedCounter value={1473281} label="Threats Neutralized Today" details="Real-time analysis and mitigation of malicious activities." />
                     <AnimatedCounter value={28500000} label="Assets Under Protection" details="Endpoints, cloud instances, and networks actively monitored." />
@@ -112,7 +112,7 @@ const GlobalSOC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8 h-[400px]"
+                    className="mt-8 sm:mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8 h-[400px] sm:h-[500px]"
                 >
                     <div className="lg:col-span-1 h-full">
                         <ThreatFeed />
