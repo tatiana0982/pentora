@@ -137,14 +137,15 @@ export default function ContactUsPage() {
           </div>
 
           {/* Text Section */}
-          <div className="flex flex-col justify-center h-full text-left">
-              <h2 className="text-4xl lg:text-5xl font-bold leading-tight">
-                We are dedicated to protecting what matters most to you.
-              </h2>
-              <p className="mt-6 text-lg text-gray-400">
-                Whether you have questions, seek expert guidance, or need immediate assistance, we're only a click away.
-              </p>
-          </div>
+<div className="flex flex-col justify-center h-full text-left px-4 sm:px-6 md:px-8 lg:px-0">
+  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+    We are dedicated to protecting what matters most to you.
+  </h2>
+  <p className="mt-4 sm:mt-5 text-base sm:text-lg text-gray-400 max-w-3xl">
+    Whether you have questions, seek expert guidance, or need immediate assistance, we're only a click away.
+  </p>
+</div>
+
         </main>
       </div>
     </div>

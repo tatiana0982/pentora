@@ -1,13 +1,13 @@
 "use client";
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import {
-    ArrowRight, Eye, ChevronDown
-} from 'lucide-react';
+import { ArrowRight, ChevronDown, Eye } from 'lucide-react';
 import Link from 'next/link';
+import React, { useEffect, useRef, useState } from 'react';
+
 import { toolsData } from '@/lib/toolData';
+
+import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 
 // --- ENHANCED TOOL CARD with 3D TILT ---
 const ToolCard = ({ tool }) => {
