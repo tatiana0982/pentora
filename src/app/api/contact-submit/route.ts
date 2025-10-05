@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       email: data.email,
       company: data.company,
       message: data.message,
-      createadAt: Timestamp.now(),
+      createdAt: Timestamp.now(),
     });
 
     return NextResponse.json({

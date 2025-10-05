@@ -25,7 +25,7 @@ export type QuoteRequest = {
   employees: string;
   message: string;
   services: string[];
-  createadAt: Timestamp ;
+  createdAt: Timestamp ;
 };
 
 export type ContactRequest = {
@@ -34,7 +34,7 @@ export type ContactRequest = {
   email: string;
   company: string;
   message: string;
-  createadAt: Timestamp ;
+  createdAt: Timestamp ;
 
 };
 

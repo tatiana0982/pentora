@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       employees: data.employees,
       message: data.message,
       services: data.services,
-      createadAt: Timestamp.now(),
+      createdAt: Timestamp.now(),
     });
 
     return NextResponse.json({
