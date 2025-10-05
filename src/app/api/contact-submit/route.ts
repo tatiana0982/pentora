@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
     dump(data)
 
-    await FirestoreService.addDoc<ContactRequest>("Contact", {
+    await FirestoreService.addDoc<ContactRequest>("Contacts", {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,

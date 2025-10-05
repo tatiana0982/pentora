@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   try {
     const data: Omit<QuoteRequest, 'createadAt'> = await req.json();
 
-    await FirestoreService.addDoc<QuoteRequest>("Quote", {
+    await FirestoreService.addDoc<QuoteRequest>("Quotes", {
       name: data.name,
       email: data.email,
       phone: data.phone,
