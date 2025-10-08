@@ -15,7 +15,7 @@ const footerSections = [
         title: 'Products',
         links: [
             { name: 'Encoderspro', href: 'https://encoderspro.com' },
-            { name: 'Pentellia', href: '#' },
+            { name: 'Pentellia', href: 'https://aistudio.instagram.com/ai/724190743389809?utm_source=ai_agent' },
         ],
     },
     {

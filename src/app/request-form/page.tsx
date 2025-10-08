@@ -62,7 +62,7 @@ export default function RequestDemoPage() {
         setDropdownOpen(false);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const { name, email, phone, company, employees, services } = formData;
         if (!name.trim()) return toast.error('Full Name is required.');
@@ -73,8 +73,27 @@ export default function RequestDemoPage() {
         if (services.length === 0) return toast.error('Select at least one service.');
 
         setIsSubmitting(true);
+
+          try {
+                const response = await fetch('/api/quote-submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+                });
+
+                if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Success:', data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
         toast.success('Submitted successfully!');
-        console.log('Form Data:', formData);
+
 
         setTimeout(() => {
             setIsSubmitting(false);
