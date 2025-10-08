@@ -1,5 +1,3 @@
-// components/HeroSearch.tsx
-
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -106,12 +104,10 @@ const ScanModal = ({ isOpen, onClose, domain }) => {
                                     ) : (
                                         // --- SIMPLIFIED FORM ---
                                         <form onSubmit={handleFormSubmit} className="space-y-5">
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                <div><label className="text-sm font-medium text-gray-400">Name</label><input type="text" name="name" value={formData.name} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
-                                                <div><label className="text-sm font-medium text-gray-400">Email</label><input type="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
-                                                <div><label className="text-sm font-medium text-gray-400">Company Name</label><input type="text" name="company" value={formData.company} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
-                                                <div><label className="text-sm font-medium text-gray-400">Contact Number</label><input type="tel" name="contact" value={formData.contact} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
-                                            </div>
+                                            <div><label className="text-sm font-medium text-gray-400">Name</label><input type="text" name="name" value={formData.name} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
+                                            <div><label className="text-sm font-medium text-gray-400">Email</label><input type="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
+                                            <div><label className="text-sm font-medium text-gray-400">Company Name</label><input type="text" name="company" value={formData.company} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
+                                            <div><label className="text-sm font-medium text-gray-400">Contact Number</label><input type="tel" name="contact" value={formData.contact} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
                                             <button type="submit" className="w-full !mt-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">Submit</button>
                                         </form>
                                     )}
