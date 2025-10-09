@@ -1,5 +1,3 @@
-// components/HeroSearch.tsx
-
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -100,178 +98,65 @@ const ScanModal = ({ isOpen, onClose, domain }) => {
     exit: { opacity: 0, scale: 0.9 },
   };
 
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <motion.div
-            variants={modalVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="relative w-full max-w-3xl rounded-2xl border border-purple-800/60 bg-[#0d0517] p-8 text-white shadow-2xl shadow-purple-500/10"
-          >
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors z-20"
-            >
-              <X size={24} />
-            </button>
-            <h2 className="text-2xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
-              Security Posture Assessment
-            </h2>
-            <p className="text-center text-gray-400 mt-1">
-              Scanning:{" "}
-              <span className="font-mono text-purple-300">{domain}</span>
-            </p>
-            <div className="mt-6 max-h-[70vh] overflow-y-auto pr-3 custom-scrollbar">
-              {stage === "scanning" && (
-                <div className="h-[320px] overflow-hidden space-y-3">
-                  <p className="text-center text-sm text-gray-400 mb-4">
-                    Running {checks.length} of 9 checks...
-                  </p>
-                  <AnimatePresence>
-                    {checks.map((check, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="flex items-center gap-3 text-sm"
-                      >
-                        <Loader2 className="h-4 w-4 animate-spin text-purple-400" />
-                        <span className="text-gray-300">{check.text}</span>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
+    return (
+        <AnimatePresence>
+            {isOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+                    <motion.div variants={modalVariants} initial="hidden" animate="visible" exit="exit" className="relative w-full max-w-3xl rounded-2xl border border-purple-800/60 bg-[#0d0517] p-8 text-white shadow-2xl shadow-purple-500/10">
+                        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors z-20"><X size={24} /></button>
+                        <h2 className="text-2xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">Security Posture Assessment</h2>
+                        <p className="text-center text-gray-400 mt-1">Scanning: <span className="font-mono text-purple-300">{domain}</span></p>
+                        <div className="mt-6 max-h-[70vh] overflow-y-auto pr-3 custom-scrollbar">
+                            {stage === 'scanning' && (
+                                <div className="h-[320px] overflow-hidden space-y-3">
+                                    <p className="text-center text-sm text-gray-400 mb-4">Running {checks.length} of 9 checks...</p>
+                                    <AnimatePresence>
+                                        {checks.map((check, index) => (
+                                            <motion.div key={index} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3 }} className="flex items-center gap-3 text-sm">
+                                                <Loader2 className="h-4 w-4 animate-spin text-purple-400" />
+                                                <span className="text-gray-300">{check.text}</span>
+                                            </motion.div>
+                                        ))}
+                                    </AnimatePresence>
+                                </div>
+                            )}
+                            {stage === 'results' && (
+                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
+                                    <h3 className="text-xl font-bold">Scan Complete</h3>
+                                    <div className="flex justify-center gap-8 my-4"><div className="flex items-center gap-2 text-green-400"><CheckCircle2 size={24} /><span className="text-2xl font-bold">{results.passed}</span><span>Checks Passed</span></div><div className="flex items-center gap-2 text-red-400"><XCircle size={24} /><span className="text-2xl font-bold">{results.failed}</span><span>Risks Found</span></div></div>
+                                    <p className="text-gray-400 text-sm max-w-md mx-auto">Your high-level report is ready. Provide your details to receive the full, comprehensive vulnerability assessment.</p>
+                                    <button onClick={() => setStage('form')} className="mt-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-full transition-colors">Download Full Report</button>
+                                </motion.div>
+                            )}
+                            {(stage === 'form' || stage === 'submitted') && (
+                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                    {stage === 'submitted' ? (
+                                        // --- SUCCESS MODAL ---
+                                        <div className="text-center py-12">
+                                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 20 }}>
+                                                <CheckCircle2 className="mx-auto h-16 w-16 text-green-500" />
+                                            </motion.div>
+                                            <h3 className="mt-4 text-2xl font-bold">Thank You!</h3>
+                                            <p className="text-gray-400 text-lg">Your submission has been received. Our team will get in touch with you shortly.</p>
+                                        </div>
+                                    ) : (
+                                        // --- SIMPLIFIED FORM ---
+                                        <form onSubmit={handleFormSubmit} className="space-y-5">
+                                            <div><label className="text-sm font-medium text-gray-400">Name</label><input type="text" name="name" value={formData.name} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
+                                            <div><label className="text-sm font-medium text-gray-400">Email</label><input type="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
+                                            <div><label className="text-sm font-medium text-gray-400">Company Name</label><input type="text" name="company" value={formData.company} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
+                                            <div><label className="text-sm font-medium text-gray-400">Contact Number</label><input type="tel" name="contact" value={formData.contact} onChange={handleInputChange} className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none" /></div>
+                                            <button type="submit" className="w-full !mt-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">Submit</button>
+                                        </form>
+                                    )}
+                                </motion.div>
+                            )}
+                        </div>
+                    </motion.div>
                 </div>
-              )}
-              {stage === "results" && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="text-center"
-                >
-                  <h3 className="text-xl font-bold">Scan Complete</h3>
-                  <div className="flex justify-center gap-8 my-4">
-                    <div className="flex items-center gap-2 text-green-400">
-                      <CheckCircle2 size={24} />
-                      <span className="text-2xl font-bold">
-                        {results.passed}
-                      </span>
-                      <span>Checks Passed</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-red-400">
-                      <XCircle size={24} />
-                      <span className="text-2xl font-bold">
-                        {results.failed}
-                      </span>
-                      <span>Risks Found</span>
-                    </div>
-                  </div>
-                  <p className="text-gray-400 text-sm max-w-md mx-auto">
-                    Your high-level report is ready. Provide your details to
-                    receive the full, comprehensive vulnerability assessment.
-                  </p>
-                  <button
-                    onClick={() => setStage("form")}
-                    className="mt-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-full transition-colors"
-                  >
-                    Download Full Report
-                  </button>
-                </motion.div>
-              )}
-              {(stage === "form" || stage === "submitted") && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                  {stage === "submitted" ? (
-                    // --- SUCCESS MODAL ---
-                    <div className="text-center py-12">
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 260,
-                          damping: 20,
-                        }}
-                      >
-                        <CheckCircle2 className="mx-auto h-16 w-16 text-green-500" />
-                      </motion.div>
-                      <h3 className="mt-4 text-2xl font-bold">Thank You!</h3>
-                      <p className="text-gray-400 text-lg">
-                        Your submission has been received. Our team will get in
-                        touch with you shortly.
-                      </p>
-                    </div>
-                  ) : (
-                    // --- SIMPLIFIED FORM ---
-                    <form onSubmit={handleFormSubmit} className="space-y-5">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <label className="text-sm font-medium text-gray-400">
-                            Name
-                          </label>
-                          <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
-                          />
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-gray-400">
-                            Email
-                          </label>
-                          <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
-                          />
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-gray-400">
-                            Company Name
-                          </label>
-                          <input
-                            type="text"
-                            name="company"
-                            value={formData.company}
-                            onChange={handleInputChange}
-                            className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
-                          />
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-gray-400">
-                            Contact Number
-                          </label>
-                          <input
-                            type="tel"
-                            name="contact"
-                            value={formData.contact}
-                            onChange={handleInputChange}
-                            className="w-full mt-1 bg-gray-900/50 border border-purple-800/60 rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
-                          />
-                        </div>
-                      </div>
-                      <button
-                        type="submit"
-                        className="w-full !mt-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
-                      >
-                        Submit
-                      </button>
-                    </form>
-                  )}
-                </motion.div>
-              )}
-            </div>
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
-  );
+            )}
+        </AnimatePresence>
+    );
 };
 
 // --- HERO SEARCH SECTION COMPONENT (NO CHANGES NEEDED HERE) ---
