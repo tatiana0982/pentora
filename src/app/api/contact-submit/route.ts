@@ -1,16 +1,16 @@
 import { FirestoreService } from "@/firebase/firestoreService";
 import { dump } from "@/helper/helper";
-import { ContactRequest } from "@/types/types";
+import { ContactRequestDoc } from "@/types/types";
 import { Timestamp } from "firebase/firestore";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const data: Omit<ContactRequest, 'createadAt'> = await req.json();
+    const data: Omit<ContactRequestDoc, 'createadAt'> = await req.json();
 
     dump(data)
 
-    await FirestoreService.addDoc<ContactRequest>("Contacts", {
+    await FirestoreService.addDoc<ContactRequestDoc>("Contacts", {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,

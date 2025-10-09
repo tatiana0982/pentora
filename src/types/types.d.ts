@@ -7,17 +7,25 @@ export type FileTree = {
 }
 
 
+export type NestedFileNode =
+  | { name: string; type: "folder"; children: NestedFileNode[] }
+  | { name: string; type: "file"; path: string; url: string };
+
+
+
+//models 
+
 export type RepositoryDoc = {
-  docId : string ;
+  docId: string;
   repoName: string;
   title: string;
   description: string;
   keywords: string;
   fileTree: FileTree[];
-  createdAt: Timestamp ;
+  createdAt: Timestamp;
 }
 
-export type QuoteRequest = {
+export type QuoteRequestDoc = {
   name: string;
   email: string;
   phone: string;
@@ -25,21 +33,32 @@ export type QuoteRequest = {
   employees: string;
   message: string;
   services: string[];
-  createdAt: Timestamp ;
+  createdAt: Timestamp;
 };
 
-export type ContactRequest = {
+
+export type ContactRequestDoc = {
   firstName: string;
   lastName: string;
   email: string;
   company: string;
   message: string;
-  createdAt: Timestamp ;
-
+  createdAt: Timestamp;
 };
 
 
+export type AnalyzedDomainsDoc = {
+  domain: string;
+  passed: number;
+  failed: number;
+  createdAt: Timestamp;
+};
 
-export type NestedFileNode =
-  | { name: string; type: "folder"; children: NestedFileNode[] }
-  | { name: string; type: "file"; path: string; url: string };
+export type AnalyzedContactsDoc = {
+  domain: string;
+  name: string;
+  email: string;
+  company: string;
+  contact: string;
+  createdAt: Timestamp;
+};

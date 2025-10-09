@@ -1,14 +1,14 @@
 import { FirestoreService } from "@/firebase/firestoreService";
 import { dump } from "@/helper/helper";
-import { QuoteRequest } from "@/types/types";
+import { QuoteRequestDoc } from "@/types/types";
 import { Timestamp } from "firebase/firestore";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const data: Omit<QuoteRequest, 'createadAt'> = await req.json();
+    const data: Omit<QuoteRequestDoc, 'createadAt'> = await req.json();
 
-    await FirestoreService.addDoc<QuoteRequest>("Quotes", {
+    await FirestoreService.addDoc<QuoteRequestDoc>("Quotes", {
       name: data.name,
       email: data.email,
       phone: data.phone,

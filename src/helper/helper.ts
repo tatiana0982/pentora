@@ -22,6 +22,3 @@ export function dump(...args: unknown[]): void {
 }
 
 
-export function toLowerNoSpaces(str: string): string {
-  return str.toLowerCase().replace(/\s+/g, '');
-}
