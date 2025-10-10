@@ -1,19 +1,28 @@
+type EmailTemplateProps = {
+  companyLogo: string;
+  recipientName: string;
+  recipientEmail: string;
+  domain: string;
+  criticalCount: number;
+  highCount: number;
+  mediumLowCount: number;
+  assetDomain: string;
+  assetIp: string;
+};
+
 export function EmailTemplate({
-  companyLogo = "https://example.com/logo.png",
-  scanDate = "October 9, 2025",
-  recipientName = "John Doe",
-  scopeOrEnvironment = "Production Environment",
-  criticalCount = 3,
-  highCount = 5,
-  mediumLowCount = 8,
-  asset1Name = "api.example.com",
-  asset1Host = "192.168.1.10",
-  asset1Critical = 2,
-  asset1High = 3,
-  asset1Medium = 1,
-  recipientEmail = "user@example.com",
-}) {
-  
+  companyLogo,
+  recipientName,
+  recipientEmail,
+  domain,
+  criticalCount,
+  highCount,
+  mediumLowCount,
+  assetDomain,
+  assetIp,
+}: EmailTemplateProps) {
+  // ...
+
   return (
     <html lang="en">
       <head>
@@ -26,7 +35,12 @@ export function EmailTemplate({
         <title>Vulnerability Scan Result</title>
       </head>
 
-      <body style={{ backgroundColor: "#0a0a0f", fontFamily: "Helvetica, Arial, sans-serif" }}>
+      <body
+        style={{
+          backgroundColor: "#0a0a0f",
+          fontFamily: "Helvetica, Arial, sans-serif",
+        }}
+      >
         <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
           <tbody>
             <tr>
@@ -70,7 +84,12 @@ export function EmailTemplate({
                               <td align="right" style={{ fontSize: "14px" }}>
                                 Vulnerability Scan Result
                                 <div style={{ fontSize: "12px", opacity: 0.9 }}>
-                                  Scan date: {scanDate}
+                                  Scan date:{" "}
+                                  {new Date().toLocaleDateString("en-US", {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  })}
                                 </div>
                               </td>
                             </tr>
@@ -88,10 +107,9 @@ export function EmailTemplate({
                         <p style={{ color: "#b8b8d1", lineHeight: 1.5 }}>
                           Hello {recipientName},<br />
                           We completed the vulnerability scan for{" "}
-                          <strong style={{ color: "#c471ed" }}>
-                            {scopeOrEnvironment}
-                          </strong>
-                          . Below is a summary of the findings and recommended next steps.
+                          <strong style={{ color: "#c471ed" }}>{domain}</strong>
+                          . Below is a summary of the findings and recommended
+                          next steps.
                         </p>
 
                         {/* Severity Stats */}
@@ -106,27 +124,45 @@ export function EmailTemplate({
                         >
                           <tbody>
                             <tr>
-                              <td style={{ textAlign: "center", padding: "8px" }}>
-                                <div style={{ color: "#ff4d6d", fontWeight: 700 }}>
+                              <td
+                                style={{ textAlign: "center", padding: "8px" }}
+                              >
+                                <div
+                                  style={{ color: "#ff4d6d", fontWeight: 700 }}
+                                >
                                   {criticalCount}
                                 </div>
-                                <div style={{ color: "#9ca3af", fontSize: "12px" }}>
+                                <div
+                                  style={{ color: "#9ca3af", fontSize: "12px" }}
+                                >
                                   Critical
                                 </div>
                               </td>
-                              <td style={{ textAlign: "center", padding: "8px" }}>
-                                <div style={{ color: "#ffb347", fontWeight: 700 }}>
+                              <td
+                                style={{ textAlign: "center", padding: "8px" }}
+                              >
+                                <div
+                                  style={{ color: "#ffb347", fontWeight: 700 }}
+                                >
                                   {highCount}
                                 </div>
-                                <div style={{ color: "#9ca3af", fontSize: "12px" }}>
+                                <div
+                                  style={{ color: "#9ca3af", fontSize: "12px" }}
+                                >
                                   High
                                 </div>
                               </td>
-                              <td style={{ textAlign: "center", padding: "8px" }}>
-                                <div style={{ color: "#5eead4", fontWeight: 700 }}>
+                              <td
+                                style={{ textAlign: "center", padding: "8px" }}
+                              >
+                                <div
+                                  style={{ color: "#5eead4", fontWeight: 700 }}
+                                >
                                   {mediumLowCount}
                                 </div>
-                                <div style={{ color: "#9ca3af", fontSize: "12px" }}>
+                                <div
+                                  style={{ color: "#9ca3af", fontSize: "12px" }}
+                                >
                                   Medium / Low
                                 </div>
                               </td>
@@ -139,7 +175,9 @@ export function EmailTemplate({
                     {/* Assets */}
                     <tr>
                       <td style={{ padding: "0 24px 20px 24px" }}>
-                        <h3 style={{ color: "#e0e0ff" }}>Top Affected Assets</h3>
+                        <h3 style={{ color: "#e0e0ff" }}>
+                          Top Affected Assets
+                        </h3>
                         <table
                           width="100%"
                           cellPadding="8"
@@ -151,21 +189,20 @@ export function EmailTemplate({
                           }}
                         >
                           <thead>
-                            <tr style={{ background: "#0f0f1e", color: "#e0e0ff" }}>
+                            <tr
+                              style={{
+                                background: "#0f0f1e",
+                                color: "#e0e0ff",
+                              }}
+                            >
                               <th>Asset</th>
                               <th>IP / Host</th>
-                              <th>Critical</th>
-                              <th>High</th>
-                              <th>Medium</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr style={{ color: "#b8b8d1" }}>
-                              <td>{asset1Name}</td>
-                              <td>{asset1Host}</td>
-                              <td>{asset1Critical}</td>
-                              <td>{asset1High}</td>
-                              <td>{asset1Medium}</td>
+                              <td style={{textAlign : "center"}}>{assetDomain}</td>
+                              <td style={{textAlign : "center"}}>{assetIp}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -175,7 +212,9 @@ export function EmailTemplate({
                     {/* Critical Findings */}
                     <tr>
                       <td style={{ padding: "0 24px 20px 24px" }}>
-                        <h3 style={{ color: "#e0e0ff" }}>Critical Findings (Top 3)</h3>
+                        <h3 style={{ color: "#e0e0ff" }}>
+                          Critical Findings (Top 3)
+                        </h3>
                         <table
                           width="100%"
                           style={{
@@ -205,7 +244,8 @@ export function EmailTemplate({
                                   }}
                                 >
                                   <strong>
-                                    CVE-2024-XXXXX - Critical Remote Code Execution
+                                    CVE-2024-XXXXX - Critical Remote Code
+                                    Execution
                                   </strong>
                                   <div style={{ marginTop: "8px" }}>
                                     Wow, you really tried to unblur this?
@@ -225,8 +265,8 @@ export function EmailTemplate({
                                     fontWeight: 600,
                                   }}
                                 >
-                                  <i className="bx bx-lock"></i> Details Available After
-                                  Meeting
+                                  <i className="bx bx-lock"></i> Details
+                                  Available After Meeting
                                 </div>
                               </td>
                             </tr>
@@ -240,14 +280,20 @@ export function EmailTemplate({
                             fontStyle: "italic",
                           }}
                         >
-                          Critical findings will be shared in detail during our scheduled discussion.
+                          Critical findings will be shared in detail during our
+                          scheduled discussion.
                         </p>
                       </td>
                     </tr>
 
                     {/* CTA */}
                     <tr>
-                      <td style={{ textAlign: "center", padding: "0 24px 28px 24px" }}>
+                      <td
+                        style={{
+                          textAlign: "center",
+                          padding: "0 24px 28px 24px",
+                        }}
+                      >
                         <a
                           href="https://cal.com/trypentora/protect-your-company-pentora-security-team"
                           target="_blank"
@@ -265,9 +311,90 @@ export function EmailTemplate({
                         >
                           Schedule a Discussion
                         </a>
-                        <div style={{ marginTop: "12px", color: "#9ca3af", fontSize: "13px" }}>
+                        <div
+                          style={{
+                            marginTop: "12px",
+                            color: "#9ca3af",
+                            fontSize: "13px",
+                          }}
+                        >
                           Or reply to this email with your preferred time.
                         </div>
+                      </td>
+                    </tr>
+                    
+                    
+                    {/* Contact */}
+                    <tr>
+                      <td
+                        style={{
+                          padding: "0 24px 24px 24px",
+                          borderTop: "1px solid #2d2d44",
+                        }}
+                      >
+                        <table
+                          width="100%"
+                          cellPadding="0"
+                          cellSpacing="0"
+                          role="presentation"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                style={{
+                                  paddingTop: "12px",
+                                  verticalAlign: "top",
+                                  fontSize: "13px",
+                                  color: "#b8b8d1",
+                                }}
+                              >
+                                <strong style={{ color: "#c471ed" }}>
+                                  Next steps
+                                </strong>
+                                <ul
+                                  style={{
+                                    margin: "8px 0 0 18px",
+                                    padding: 0,
+                                    color: "#b8b8d1",
+                                  }}
+                                >
+                                  <li>
+                                    Prioritise remediation of Critical findings
+                                    within 72 hours
+                                  </li>
+                                  <li>
+                                    Schedule a meeting to review the remediation
+                                    plan
+                                  </li>
+                                </ul>
+                              </td>
+                              <td
+                                align="right"
+                                style={{
+                                  verticalAlign: "top",
+                                  fontSize: "13px",
+                                  color: "#9ca3af",
+                                }}
+                              >
+                                <br />
+                                <div style={{ color: "#b8b8d1" }}>
+                                  Security Team
+                                  <br />
+                                  PENTORA
+                                </div>
+                                <div style={{ marginTop: "0px" }}>
+                                  Email:{" "}
+                                  <a
+                                    href="mailto:protect@trypentora.com"
+                                    style={{ color: "#c471ed" }}
+                                  >
+                                    protect@trypentora.com
+                                  </a>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </td>
                     </tr>
 
@@ -283,9 +410,13 @@ export function EmailTemplate({
                         }}
                       >
                         This message was sent to{" "}
-                        <strong style={{ color: "#9ca3af" }}>{recipientEmail}</strong>.
+                        <strong style={{ color: "#9ca3af" }}>
+                          {recipientEmail}
+                        </strong>
+                        .
                         <div style={{ marginTop: "6px" }}>
-                          &copy; 2025, ENCODERSPRO PVT. LTD. All rights reserved.
+                          &copy; 2025, ENCODERSPRO PVT. LTD. All rights
+                          reserved.
                         </div>
                       </td>
                     </tr>

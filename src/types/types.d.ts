@@ -51,6 +51,9 @@ export type AnalyzedDomainsDoc = {
   domain: string;
   passed: number;
   failed: number;
+  criticalCount : number ;
+  highCount : number ;
+  mediumCount : number ;
   createdAt: Timestamp;
 };
 
