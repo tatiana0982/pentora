@@ -81,7 +81,7 @@ const ScanModal = ({ isOpen, onClose, domain }) => {
       return;
     }
 
-    await fetch("/api/analyzed-contact-details", {
+     fetch("/api/analyzed-contact-details", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ domain , name , email , company , contact }),

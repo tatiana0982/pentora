@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
       mediumLowCount: analyzedDomain.mediumCount,
     }));
 
-    sendMail(email, "Pentora", html)
+    await sendMail(email, "Pentora", html)
 
 
     // 3️⃣ Return successful response
