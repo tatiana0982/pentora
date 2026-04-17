@@ -1,11 +1,13 @@
-import { FirestoreService } from "@/firebase/firestoreService";
-import { dump } from "@/helper/helper";
+export const dynamic = 'force-dynamic';
+
 import { QuoteRequestDoc } from "@/types/types";
 import { Timestamp } from "firebase/firestore";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
+    const { FirestoreService } = await import("@/firebase/firestoreService");
+
     const data: Omit<QuoteRequestDoc, 'createadAt'> = await req.json();
 
     await FirestoreService.addDoc<QuoteRequestDoc>("Quotes", {
