@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -44,7 +44,7 @@
     "framer-motion": "^12.23.12",
     "genkit": "^1.14.1",
     "lucide-react": "^0.542.0",
-    "next": "15.5.0",
+    "next": "^15.5.2",
     "nodemailer": "^7.0.9",
     "patch-package": "^8.0.0",
     "radix-ui": "^1.4.3",

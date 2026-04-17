@@ -7,10 +7,10 @@ const nextConfig: NextConfig = {
   },
     /* config options here */
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
 };
 export default nextConfig;
