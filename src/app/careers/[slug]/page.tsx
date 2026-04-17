@@ -14,8 +14,9 @@ const findJobBySlug = (slug: string): Job | null => {
 };
 
 // DYNAMIC METADATA (App Router way to set the <head> tag)
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const job = findJobBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const job = findJobBySlug(slug);
   if (!job) {
     return { title: 'Job Not Found' };
   }
@@ -25,8 +26,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 // THE PAGE COMPONENT (Now a Server Component)
-const JobDetailPage = ({ params }: { params: { slug: string } }) => {
-  const { slug } = params; // Get slug from component props, not a hook
+const JobDetailPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
   const job = findJobBySlug(slug);
 
   // If no job is found, render the not-found page
