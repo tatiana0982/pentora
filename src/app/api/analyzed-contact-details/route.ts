@@ -67,14 +67,10 @@ export async function POST(req: NextRequest) {
 }
 
 
-
 /**
  * Sends an email using Nodemailer
- * @param to - Recipient email address
- * @param subject - Email subject
- * @param html - Email body (HTML)
  */
-export async function sendMail(
+async function sendMail(
   to: string,
   subject: string,
   html: string
@@ -83,7 +79,7 @@ export async function sendMail(
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT) || 587,
-      secure: false, // true for port 465
+      secure: false,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
