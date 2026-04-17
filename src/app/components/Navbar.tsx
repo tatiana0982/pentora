@@ -140,8 +140,12 @@ const MobileMenu = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => 
           <Link href="/threat-monitoring" onClick={handleLinkClick} className="block py-4 text-lg font-medium text-gray-200">Threat Monitoring</Link>
         </motion.div>
         <motion.div variants={itemVariants}>
-          <Link href="/contact" onClick={handleLinkClick} className="block py-4 text-lg font-medium text-gray-200">Global Contact</Link>
-        </motion.div>
+<Link href="https://pentellia.io" target="_blank" rel="noopener noreferrer"
+  onClick={handleLinkClick}
+  className="block py-4 text-lg font-medium text-gray-200">
+  Pentellia Platform
+</Link>        </motion.div>
+        
 
         <motion.div variants={itemVariants} className="pt-10 mt-auto flex flex-col space-y-4">
             <Link href="#login" onClick={handleLinkClick} className="text-center py-3 text-lg font-bold text-white bg-white/10 rounded-full transition-colors hover:bg-white/20">
@@ -225,9 +229,10 @@ const Navbar = () => {
             <Link href="/threat-monitoring" className="h-full flex items-center px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-md transition-colors">
               Threat Monitoring
             </Link>
-            <Link href="/contact" className="h-full flex items-center px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-md transition-colors">
-              Global Contact
-            </Link>
+          <Link href="https://pentellia.io" target="_blank" rel="noopener noreferrer"
+  className="h-full flex items-center px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-md transition-colors">
+  Pentellia Platform
+</Link>
           </div>
 
           {/* CTA Buttons */}
