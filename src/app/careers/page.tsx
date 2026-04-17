@@ -4,7 +4,7 @@ import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 
 // --- UPDATED TYPE DEFINITIONS ---
-export interface Job {
+interface Job {
   slug: string; // A URL-friendly identifier for the job
   title: string;
   location: string;
@@ -14,13 +14,13 @@ export interface Job {
   qualifications: string[];
 }
 
-export interface JobDepartment {
+interface JobDepartment {
   name: string;
   jobs: Job[];
 }
 
 // --- MOCK DATA (Now with more details for the new page) ---
-export const jobDepartments: JobDepartment[] = [
+const jobDepartments:  JobDepartment[] = [
   {
     name: 'Engineering',
     jobs: [
